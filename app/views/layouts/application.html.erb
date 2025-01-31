@@ -1,18 +1,32 @@
-<!DOCTYPE html>
 <html>
   <head>
-    <title>Depot</title>
+    <title>Pragprog Books Online Store</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "inter-font", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application", media: "all",
+    "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-  <body>
-    <%= debug(params) if Rails.env.development? %>
-    <main class="container mx-auto mt-28 px-5 flex">
-      <%= yield %>
-    </main>
+  <body data-turbo-track="reload">
+    <header class="bg-green-700">
+      <%= image_tag 'logo.svg', alt: 'The Pragmatic Bookshelf' %>
+      <h1><%= @page_title %></h1>
+    </header>
+    <section class="flex">
+      <nav class="bg-green-900 p-6">
+        <ul class="text-gray-300 leading-8">
+          <li><%= link_to "Home", store_path, class: "hover:bg-green-300 transition-colors duration-200" %></li>
+          <li><%= link_to "Questions" ,"#"%></li>
+          <li><%= link_to "News" ,"#"%></li>
+          <li><%= link_to "Contact","#" %></li>
+        </ul>
+      </nav>
+      <main class="container mx-auto mt-4 px-5 flex">
+        <%= yield %>
+      </main>
+    </section>
   </body>
 </html>

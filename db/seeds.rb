@@ -25,5 +25,5 @@ Product.create!(title: "Design and Build Great Web APIs",
                      right away.
                    </p>
                  },
-                image_url: "maapis.jpg",
+                image_url: "",
                 price: 24.95)
