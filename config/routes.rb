@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :cart_items
+  resources :carts
   get "static_pages/home"
   get "static_pages/contact"
   get "stores/index"
