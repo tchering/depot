@@ -13,7 +13,7 @@ require 'rails_helper'
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
 RSpec.describe "/cart_items", type: :request do
-  
+
   # This should return the minimal set of attributes required to create a valid
   # CartItem. As you add validations to CartItem, be sure to
   # adjust the attributes here as well.

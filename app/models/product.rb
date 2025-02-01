@@ -1,4 +1,5 @@
 class Product < ApplicationRecord
+  before_destroy :ensure_not_referenced_by_any_cart_item
   validates :title, uniqueness: true
   validates :description, presence: true, length: { minimum: 5, maximum: 500, message: "should be between 5 and 500 characters" }
   validates :image_url, presence: true, allow_blank: true, format: {
@@ -8,7 +9,6 @@ class Product < ApplicationRecord
   validates :price, numericality: { greater_than_or_equal_to: 0.01, message: "must be at least 0.01" }
 
   has_many :cart_items, dependent: :destroy
-  before_destroy :ensure_not_referenced_by_any_cart_item
 
   private
 

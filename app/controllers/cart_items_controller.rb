@@ -1,4 +1,7 @@
 class CartItemsController < ApplicationController
+  include CurrentCart
+  before_action :set_cart, only: [:create] #is in current_cart.rb
+  #creates cart and store in session .
   before_action :set_cart_item, only: %i[ show edit update destroy ]
 
   # GET /cart_items or /cart_items.json
@@ -21,11 +24,16 @@ class CartItemsController < ApplicationController
 
   # POST /cart_items or /cart_items.json
   def create
-    @cart_item = CartItem.new(cart_item_params)
+    product = Product.find(params[:product_id])
+    #received from params in store/index.html.erb button add to cart
+    @cart_item = @cart.cart_items.build(product: product)
+    #here @cart is extracted from concern current_cart
 
     respond_to do |format|
       if @cart_item.save
-        format.html { redirect_to @cart_item, notice: "Cart item was successfully created." }
+        format.html { redirect_to cart_path(@cart_item.cart), notice: "Cart item was successfully created." }
+        # format.html { redirect_to cart_path(@cart), notice: "Cart item was successfully created." }
+        #to in the above commented line (@cart) is directly received from set_cart method and above cart id is received from association in cart_items.rb
         format.json { render :show, status: :created, location: @cart_item }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -58,13 +66,14 @@ class CartItemsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_cart_item
-      @cart_item = CartItem.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def cart_item_params
-      params.require(:cart_item).permit(:product_id, :cart_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_cart_item
+    @cart_item = CartItem.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def cart_item_params
+    params.require(:cart_item).permit(:product_id, :cart_id)
+  end
 end

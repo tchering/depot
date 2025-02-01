@@ -66,4 +66,24 @@ RSpec.describe Product, type: :model do
     expect(product).not_to be_valid
     expect(product.errors[:description]).to include("should be between 5 and 500 characters")
   end
+
+  describe "#destroy Product" do
+    let(:product) { Product.create(title: "test", description: "hello world", image_url: "", price: 19.99) }
+    let(:cart) { Cart.create() }
+
+    context "when product is in a cart" do
+      before do
+        cart.cart_items.create(product: product)
+      end
+
+      it "prevents product deletion" do
+        expect { product.destroy }.not_to change(Product, :count)
+      end
+
+      it "adds an error message" do
+        product.destroy
+        expect(product.errors[:base]).to include("Items are still in cart. Remove them first.")
+      end
+    end
+  end
 end

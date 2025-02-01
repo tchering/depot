@@ -11,6 +11,7 @@
     <%= javascript_importmap_tags %>
   </head>
   <body data-turbo-track="reload">
+    <%= debug(params) if Rails.env.development? %>
     <header class="bg-green-700">
       <%= image_tag 'logo.svg', alt: 'The Pragmatic Bookshelf' %>
       <h1><%= @page_title %></h1>

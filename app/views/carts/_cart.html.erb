@@ -1,2 +1,8 @@
-<div id="<%= dom_id cart %>">
+<div id="<%= dom_id (cart) %>">
+  <h2 class="font-bold text-2xl mb-3">Your Pragmatic Cart</h2>
+  <ul>
+    <% cart.products.each do |product| %>
+      <li><%= product.title %> <%= product.price %></li>
+    <% end %>
+  </ul>
 </div>
