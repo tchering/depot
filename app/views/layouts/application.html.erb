@@ -19,6 +19,9 @@
     </header>
     <section class="flex">
       <nav class="bg-green-900 p-6">
+        <div>
+          <%= render partial:"carts/cart",locals:{cart: current_cart} %>
+        </div>
         <ul class="text-gray-300 leading-8">
           <li><%= link_to "Home", store_path, class: "hover:bg-green-300 transition-colors duration-200" %></li>
           <li><%= link_to "Questions" ,"#"%></li>

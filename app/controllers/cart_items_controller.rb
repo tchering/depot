@@ -31,7 +31,7 @@ class CartItemsController < ApplicationController
 
     respond_to do |format|
       if @cart_item.save
-        format.html { redirect_to cart_path(@cart_item.cart), notice: "Cart item was successfully created." }
+        format.html { redirect_to store_path, notice: "Cart item was successfully created." }
         # format.html { redirect_to cart_path(@cart), notice: "Cart item was successfully created." }
         #to in the above commented line (@cart) is directly received from set_cart method and above cart id is received from association in cart_items.rb
         format.json { render :show, status: :created, location: @cart_item }

@@ -1,7 +1,21 @@
 module CurrentCart
+  extend ActiveSupport::Concern
+
+  included do
+    before_action :set_cart       # Runs set_cart before controller actions
+    helper_method :current_cart    # Makes current_cart available in views
+  end
+
   private
 
   def set_cart
+    @cart = Cart.find(session[:cart_id])
+  rescue ActiveRecord::RecordNotFound
+    @cart = Cart.create
+    session[:cart_id] = @cart.id
+  end
+
+  def current_cart
     @cart = Cart.find(session[:cart_id])
   rescue ActiveRecord::RecordNotFound
     @cart = Cart.create
