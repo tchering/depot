@@ -26,7 +26,7 @@ class CartItemsController < ApplicationController
   def create
     product = Product.find(params[:product_id])
     #received from params in store/index.html.erb button add to cart
-    @cart_item = @cart.cart_items.build(product: product)
+    @cart_item = @cart.add_product(product) #add_product is defined in cart.rb
     #here @cart is extracted from concern current_cart
 
     respond_to do |format|
@@ -60,7 +60,7 @@ class CartItemsController < ApplicationController
     @cart_item.destroy!
 
     respond_to do |format|
-      format.html { redirect_to cart_items_path, status: :see_other, notice: "Cart item was successfully destroyed." }
+      format.html { redirect_to cart_path, status: :see_other, notice: "Cart item was successfully removed." }
       format.json { head :no_content }
     end
   end

@@ -1,6 +1,10 @@
 class CartItem < ApplicationRecord
   belongs_to :product
   belongs_to :cart
+
+  def total_price
+    product.price * quantity
+  end
 end
 
 # creating cart items instance with association method in rails console
